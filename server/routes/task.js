@@ -6,5 +6,6 @@ router
 .post("/", taskController.createTask)
 .get("/",taskController.getTask)
 .delete("/:id",taskController.deleteTask)
+.put("/:id",taskController.updatedTask)
 
 exports.router = router;
