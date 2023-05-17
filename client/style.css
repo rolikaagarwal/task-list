@@ -1,0 +1,7 @@
+.task{
+    background-color: cyan;
+    padding: 20px;
+    display: flex;
+    width: 10%;
+    margin: 20px;
+}
