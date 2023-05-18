@@ -8,7 +8,7 @@ const authRouter = require("./routes/auth");
 const app = express();
 
 // middlewares
-app.use((req,res,next)=>{
+const auth  = (req,res,next)=>{
   try{
      const token = req.get('Authorization').split('Bearer ')[1];
      console.log(token);
@@ -25,7 +25,7 @@ app.use((req,res,next)=>{
     res.sendStatus(401);
 
    }
-})
+}
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -39,8 +39,8 @@ mongoose
   console.log("Error connecting to MongoDB:", err);
 });
 
-app.use("/task",taskRouter.router);
-app.use("/user",userRouter.router);
+app.use("/task",auth, taskRouter.router);
+app.use("/user",auth , userRouter.router);
 app.use("/auth", authRouter.router);
 // listening on port
 
