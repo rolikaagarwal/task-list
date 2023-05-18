@@ -3,9 +3,25 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const taskRouter = require("./routes/task");
 const userRouter = require("./routes/user");
+const jwt = require("jsonwebtoken");
 const app = express();
 
 // middlewares
+app.use((req,res,next)=>{
+   const token = req.get('Authorization').split('Bearer ')[1];
+   console.log(token);
+  //  console.log(process.env.SECRET)
+    // console.log(req.body.email);
+  
+     var decoded = jwt.verify(token, process.env.SECRET);
+     console.log(decoded)
+     if(decoded.email){
+      next()
+     }
+     else{
+      res.sendStatus(401);
+     }
+})
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
